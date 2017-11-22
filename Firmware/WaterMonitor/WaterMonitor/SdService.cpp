@@ -39,6 +39,7 @@ const int CsPin = 4;
 
 #endif
 
+#define SDUPDATEDATATIME 30000
 
 #include "SdService.h"
 #include <SPI.h>
@@ -95,7 +96,7 @@ void SdService::setup()
 //********************************************************************************************
 void SdService::update()
 {
-	if (sdReady && millis() - sdDataUpdateTime > 2000) //2000ms
+	if (sdReady && millis() - sdDataUpdateTime > SDUPDATEDATATIME) 
 	{
 		//Serial.println(F("Write Sd card"));	
 		dataString = "";
@@ -141,8 +142,6 @@ void SdService::update()
 		//DO
 		if (this->gravitySensor[2] != NULL) {
 			connectString(this->gravitySensor[2]->getValue());
-			Serial.print(F("Do = "));
-			Serial.println(this->gravitySensor[2]->getValue());
 		}
 		else
 			connectString(0);
